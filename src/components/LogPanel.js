@@ -9,13 +9,10 @@ const LogPanel = ({handleClick, allActive, logs}) => {
         {logs.map((log, i) => <p key={i} className={log.type}>{log.msg}</p>)}
       </pre>
       
-      {/* Button below is the Activate All/Decommisssion All button */}
       <Button
         fluid
         color={allActive ? "green" : "red"}
-        /* This isn't always going to be the same color...*/
         content={allActive ? "DECOMMISSION ALL" : "ACTIVATE ALL"}
-        /* Should the button always read "ACTIVATE ALL"? When should it read "DECOMMISSION ALL"? */
         onClick={handleClick}
       />
     </Segment>

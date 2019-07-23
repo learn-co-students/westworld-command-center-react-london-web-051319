@@ -2,11 +2,11 @@ import React from 'react';
 import '../stylesheets/Area.css'
 import HostList from './HostList'
 
-const Area = ({ area, hosts, handleClick }) => (
+const Area = ({ area, hosts, handleClick, selectedHost }) => (
   <div className='area' id={area.name}>
     <h3 className='labels'>{area.name.split('_').map(name => name.slice(0,1).toUpperCase() + name.slice(1)).join(" ")}</h3>
 
-    <HostList hosts={hosts} perRow={Math.floor(area.limit/2) + (area.limit > 10 ? 3 : 1)} handleClick={handleClick}/>
+    <HostList hosts={hosts} perRow={Math.floor(area.limit/2) + (area.limit > 10 ? 3 : 1)} handleClick={handleClick} selectedHost={selectedHost}/>
   </div>
 )
 

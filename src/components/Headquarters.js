@@ -8,12 +8,11 @@ import LogPanel from './LogPanel'
 
 class Headquarters extends Component {
   render(){
-    console.log('headquarters: ',this.props.handleLogs)
     return(
       <Grid celled='internally'>
         <Grid.Column width={8}>
 
-        <ColdStorage hosts={this.props.hosts} selectedHost={this.props.selectedHost} handleClick={this.props.handleHostClick} handleLog={this.addLog}/>
+        <ColdStorage hosts={this.props.hosts} selectedHost={this.props.selectedHost} handleClick={this.props.handleHostClick} />
 
         </Grid.Column>
         <Grid.Column width={5}>

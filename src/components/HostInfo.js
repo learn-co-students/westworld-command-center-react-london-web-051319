@@ -26,8 +26,6 @@ const HostInfo = ({host, areas, handleChange, handleLogs}) => {
     handleLogs(active ? Log.notify(`Decommissioned ${host.firstName}`) : Log.warn(`Activated ${host.firstName}`))
   }
 
-  console.log('HostInfo: ',handleLogs)
-
   return (
     <Grid>
       <Grid.Column width={6}>

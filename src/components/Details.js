@@ -9,7 +9,6 @@ const Details = ({ host, areas, handleChange, handleLogs }) => {
   // Watch the video to see how this works in the app.
 
   const renderSomething = () => (<Image size='medium' src={Images.westworldLogo}/>)
-  console.log('Details: ',handleLogs)
   return(
     <Segment id="details" className="HQComps">
       {host ? <HostInfo host={host} areas={areas} handleChange={handleChange} handleLogs={handleLogs}/> : renderSomething()}

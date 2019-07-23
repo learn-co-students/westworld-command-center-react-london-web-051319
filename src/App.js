@@ -53,15 +53,10 @@ class App extends Component {
     this.setState({logs: [log, ...this.state.logs]})
   }
 
-  // As you go through the components given you'll see a lot of functional components.
-  // But feel free to change them to whatever you want.
-  // It's up to you whether they should be stateful or not.
-
   render(){
-    console.log('app: ',this.addLog)
     return (
       <Segment id='app'>
-        <WestworldMap areas={this.areas()} hosts={this.activeHosts()} handleHostClick={this.updateSelectedHost} />
+        <WestworldMap areas={this.areas()} hosts={this.activeHosts()} handleHostClick={this.updateSelectedHost} selectedHost={this.selectedHost()} />
         <Headquarters areas={this.areas()} hosts={this.inactiveHosts()} selectedHost={this.selectedHost()} handleHostClick={this.updateSelectedHost} handleHostChange={this.updateHostDetails} toggleActiveAll={this.toggleActiveAll} allActive={this.currentActive()} logs={this.state.logs} handleLogs={this.addLog}/>
       </Segment>
     )
