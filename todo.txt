@@ -1,0 +1,19 @@
+----------
+Endpoints:
+----------
+
+GET /hosts
+GET /areas
+
+---------
+COMP TREE
+---------
+
+APP
+ |-- Map
+ |    |- Areas
+ |         |- Hosts
+ |
+ |- Cold Storage
+ |    |- Hosts
+ |
