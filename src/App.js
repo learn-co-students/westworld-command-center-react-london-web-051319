@@ -38,15 +38,23 @@ class App extends Component {
 
   toggleActiveAll = () => this.setState({hosts: this.state.hosts.map(host => ({...host, active: !this.state.hosts.every(host => host.active)}))})
 
+  areas = () => {
+    return this.state.areas.map(area => ({...area, hostCount: this.state.hosts.filter(host => host.area === area.name).length}))
+  }
+
   // As you go through the components given you'll see a lot of functional components.
   // But feel free to change them to whatever you want.
   // It's up to you whether they should be stateful or not.
 
   render(){
+    // console.log(this.state.areas.map(area => ({...area, hostCount: this.state.hosts.filter(host => host.area === area.name).length})))
+    // console.log(this.state.areas.map(area => this.state.hosts.filter(host => host.area === area.name).length))
+    // console.log('state: ', this.state.areas)
+    // console.log('func: ', this.areas())
     return (
       <Segment id='app'>
-        <WestworldMap areas={this.state.areas} hosts={this.activeHosts()} handleHostClick={this.updateSelectedHost} />
-        <Headquarters areas={this.state.areas} hosts={this.inactiveHosts()} selectedHost={this.selectedHost()} handleHostClick={this.updateSelectedHost} handleHostChange={this.updateHostDetails} toggleActiveAll={this.toggleActiveAll} allActive={this.state.hosts.every(host => host.active)}/>
+        <WestworldMap areas={this.areas()} hosts={this.activeHosts()} handleHostClick={this.updateSelectedHost} />
+        <Headquarters areas={this.areas()} hosts={this.inactiveHosts()} selectedHost={this.selectedHost()} handleHostClick={this.updateSelectedHost} handleHostChange={this.updateHostDetails} toggleActiveAll={this.toggleActiveAll} allActive={this.state.hosts.every(host => host.active)}/>
       </Segment>
     )
   }

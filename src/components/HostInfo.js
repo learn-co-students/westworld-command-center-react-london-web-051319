@@ -8,6 +8,15 @@ const HostInfo = ({host, areas, handleChange}) => {
   const {firstName, active, imageUrl, gender, area} = host
   const options = areas.map(area => ({key: area.name, value: area.name, text: area.name.split('_').map(name => name.slice(0,1).toUpperCase() + name.slice(1)).join(" ")}))
 
+  const changeArea = (value) => {
+    const area = areas.find(area => area.name === value)
+    if (area.hostCount === area.limit) {
+      alert('Cannot add another to that area as at limit.')
+    } else {
+      handleChange({...host, area: value})
+    }
+  }
+
   return (
     <Grid>
       <Grid.Column width={6}>
@@ -22,16 +31,13 @@ const HostInfo = ({host, areas, handleChange}) => {
         <Card>
           <Card.Content>
             <Card.Header>
-              {firstName} | { gender === 'Male' ? <Icon name='man' /> : <Icon name='woman' />}
-              { /* Think about how the above should work to conditionally render the right First Name and the right gender Icon */ }
+              {firstName} | { gender === 'Male' ? <Icon name='man' /> : <Icon name='woman' />}x`
             </Card.Header>
             <Card.Meta>
               <Radio
                 onChange={() => handleChange({...host, active: !active})}
                 label={active ? "Active" : "Decommissioned"}
-                /* Sometimes the label should take "Decommissioned". How are we going to conditionally render that? */
                 checked={active}
-                /* Checked takes a boolean and determines what position the switch is in. Should it always be true? */
                 slider
               />
             </Card.Meta>
@@ -39,7 +45,7 @@ const HostInfo = ({host, areas, handleChange}) => {
             <Divider />
             Current Area:
             <Dropdown
-              onChange={(e, {value}) => handleChange({...host, area: value})}
+              onChange={(e, {value}) => changeArea(value)}
               value={area}
               options={options}
               selection
