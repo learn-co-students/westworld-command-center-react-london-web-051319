@@ -3,8 +3,9 @@ import '../stylesheets/Headquarters.css'
 import { Grid } from 'semantic-ui-react'
 import Details from './Details'
 import ColdStorage from './ColdStorage'
+import LogPanel from './LogPanel';
 
-const Headquarters = ({ hosts, selectHost, selectedHost, areas, toggleActivation, changeArea }) => {
+const Headquarters = ({ hosts, selectHost, selectedHost, areas, toggleAllActivation, toggleActivation, changeArea, activated }) => {
   // Remember, there's many ways to do this. This doesn't have to be a class component. It's up to you.
 
   return (
@@ -19,7 +20,7 @@ const Headquarters = ({ hosts, selectHost, selectedHost, areas, toggleActivation
       </Grid.Column>
       <Grid.Column width={3}>
 
-        {}
+        {<LogPanel activated={activated} toggleActivation={toggleAllActivation}/>}
 
       </Grid.Column>
     </Grid>
