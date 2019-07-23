@@ -3,11 +3,11 @@ import { Segment } from 'semantic-ui-react';
 import Area from './Area'
 
 
-const WestworldMap = ({areas, hosts}) => {
+const WestworldMap = ({areas, hosts, handleHostClick, handleHostChange}) => {
 
   return (
     <Segment id="map" >
-      {areas.map(area => <Area key={area.id} area={area} hosts={hosts.filter(host => host.area === area.name)} />)}
+      {areas.map(area => <Area key={area.id} area={area} hosts={hosts.filter(host => host.area === area.name)} handleClick={handleHostClick} />)}
     </Segment>
   )
 }

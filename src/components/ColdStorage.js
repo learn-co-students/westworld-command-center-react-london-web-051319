@@ -1,6 +1,6 @@
 import React from 'react';
-import { Segment, Card } from 'semantic-ui-react'
-import Host from './Host'
+import { Segment } from 'semantic-ui-react'
+import HostList from './HostList'
 
 const ColdStorage = ({hosts, selectedHost, handleClick}) => (
   <Segment.Group className="HQComps">
@@ -9,9 +9,7 @@ const ColdStorage = ({hosts, selectedHost, handleClick}) => (
     </Segment>
     <Segment compact>
 
-    <Card.Group itemsPerRow={10}>
-      {hosts.map(host => <Host host={host} selectedHost={selectedHost} handleClick={() => handleClick(host.id)}/>)}
-    </Card.Group>
+      <HostList hosts={hosts} selectedHost={selectedHost} handleClick={handleClick} />
 
     </Segment>
   </Segment.Group>
