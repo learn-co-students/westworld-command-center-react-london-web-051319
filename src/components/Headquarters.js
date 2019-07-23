@@ -7,22 +7,21 @@ import LogPanel from './LogPanel'
 
 
 class Headquarters extends Component {
-  // Remember, there's many ways to do this. This doesn't have to be a class component. It's up to you.
-
   render(){
+    console.log('headquarters: ',this.props.handleLogs)
     return(
       <Grid celled='internally'>
         <Grid.Column width={8}>
 
-        <ColdStorage hosts={this.props.hosts} selectedHost={this.props.selectedHost} handleClick={this.props.handleHostClick} />
+        <ColdStorage hosts={this.props.hosts} selectedHost={this.props.selectedHost} handleClick={this.props.handleHostClick} handleLog={this.addLog}/>
 
         </Grid.Column>
         <Grid.Column width={5}>
-          <Details host={this.props.selectedHost} areas={this.props.areas} handleChange={this.props.handleHostChange}/>
+          <Details host={this.props.selectedHost} areas={this.props.areas} handleChange={this.props.handleHostChange} handleLogs={this.props.handleLogs}/>
         </Grid.Column>
         <Grid.Column width={3}>
 
-        <LogPanel handleClick={this.props.toggleActiveAll} allActive={this.props.allActive} />
+        <LogPanel handleClick={this.props.toggleActiveAll} allActive={this.props.allActive} logs={this.props.logs} handleLogs={this.props.handleLogs} />
 
         </Grid.Column>
       </Grid>

@@ -1,21 +1,32 @@
 import '../stylesheets/HostInfo.css'
 import React from 'react'
 import { Radio, Icon, Card, Grid, Image, Dropdown, Divider } from 'semantic-ui-react'
+import Log from '../services/Log'
 // import { hostname } from 'os';
 
 
-const HostInfo = ({host, areas, handleChange}) => {
+const HostInfo = ({host, areas, handleChange, handleLogs}) => {
   const {firstName, active, imageUrl, gender, area} = host
-  const options = areas.map(area => ({key: area.name, value: area.name, text: area.name.split('_').map(name => name.slice(0,1).toUpperCase() + name.slice(1)).join(" ")}))
+  const formatAreaName = areaName => areaName.split('_').map(name => name.slice(0,1).toUpperCase() + name.slice(1)).join(" ")
+  const options = areas.map(area => ({key: area.name, value: area.name, text: formatAreaName(area.name)}))
 
   const changeArea = (value) => {
     const area = areas.find(area => area.name === value)
     if (area.hostCount === area.limit) {
-      alert('Cannot add another to that area as at limit.')
+      handleLogs(Log.error(`Too many hosts. Cannot add ${host.firstName} to ${formatAreaName(value)}`))
     } else {
       handleChange({...host, area: value})
+      handleLogs(Log.notify(`${host.firstName} set in ${formatAreaName(value)}`))
+
     }
   }
+
+  const changeActive = () => {
+    handleChange({...host, active: !active})
+    handleLogs(active ? Log.notify(`Decommissioned ${host.firstName}`) : Log.warn(`Activated ${host.firstName}`))
+  }
+
+  console.log('HostInfo: ',handleLogs)
 
   return (
     <Grid>
@@ -35,7 +46,7 @@ const HostInfo = ({host, areas, handleChange}) => {
             </Card.Header>
             <Card.Meta>
               <Radio
-                onChange={() => handleChange({...host, active: !active})}
+                onChange={changeActive}
                 label={active ? "Active" : "Decommissioned"}
                 checked={active}
                 slider

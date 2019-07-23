@@ -17,3 +17,5 @@ export class Log {
     return {type: 'notify', msg: `[${time}] NOTIFY: ${msg}`}
   }
 }
+
+export default Log;

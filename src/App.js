@@ -4,13 +4,15 @@ import { Segment } from 'semantic-ui-react';
 import WestworldMap from './components/WestworldMap';
 import Headquarters from './components/Headquarters';
 import {getAreas, getHosts} from './assets/API'
+import Log from './services/Log';
 
 
 class App extends Component {
   state = {
     areas: [],
     hosts: [],
-    selectedHost: 1
+    selectedHost: 1,
+    logs: []
   }
 
   componentDidMount() {
@@ -36,10 +38,19 @@ class App extends Component {
 
   updateHostDetails = updatedHost => this.setState({hosts: this.state.hosts.map(host => host.id === updatedHost.id ? updatedHost : host)})
 
-  toggleActiveAll = () => this.setState({hosts: this.state.hosts.map(host => ({...host, active: !this.state.hosts.every(host => host.active)}))})
+  currentActive = () => this.state.hosts.every(host => host.active)
+
+  toggleActiveAll = () => {
+    this.setState({hosts: this.state.hosts.map(host => ({...host, active: !this.currentActive()}))})
+    this.addLog(this.currentActive() ? Log.notify('Decommissiong all hosts.') : Log.warn('Activating all hosts!'))
+  }
 
   areas = () => {
     return this.state.areas.map(area => ({...area, hostCount: this.state.hosts.filter(host => host.area === area.name).length}))
+  }
+
+  addLog = (log) => {
+    this.setState({logs: [log, ...this.state.logs]})
   }
 
   // As you go through the components given you'll see a lot of functional components.
@@ -47,14 +58,11 @@ class App extends Component {
   // It's up to you whether they should be stateful or not.
 
   render(){
-    // console.log(this.state.areas.map(area => ({...area, hostCount: this.state.hosts.filter(host => host.area === area.name).length})))
-    // console.log(this.state.areas.map(area => this.state.hosts.filter(host => host.area === area.name).length))
-    // console.log('state: ', this.state.areas)
-    // console.log('func: ', this.areas())
+    console.log('app: ',this.addLog)
     return (
       <Segment id='app'>
         <WestworldMap areas={this.areas()} hosts={this.activeHosts()} handleHostClick={this.updateSelectedHost} />
-        <Headquarters areas={this.areas()} hosts={this.inactiveHosts()} selectedHost={this.selectedHost()} handleHostClick={this.updateSelectedHost} handleHostChange={this.updateHostDetails} toggleActiveAll={this.toggleActiveAll} allActive={this.state.hosts.every(host => host.active)}/>
+        <Headquarters areas={this.areas()} hosts={this.inactiveHosts()} selectedHost={this.selectedHost()} handleHostClick={this.updateSelectedHost} handleHostChange={this.updateHostDetails} toggleActiveAll={this.toggleActiveAll} allActive={this.currentActive()} logs={this.state.logs} handleLogs={this.addLog}/>
       </Segment>
     )
   }

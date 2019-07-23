@@ -4,15 +4,15 @@ import * as Images from '../services/Images'
 import HostInfo from './HostInfo'
 
 
-const Details = ({ host, areas, handleChange }) => {
+const Details = ({ host, areas, handleChange, handleLogs }) => {
   // We'll render the logo if no host is selected. But if a host does get selected....
   // Watch the video to see how this works in the app.
 
   const renderSomething = () => (<Image size='medium' src={Images.westworldLogo}/>)
-
+  console.log('Details: ',handleLogs)
   return(
     <Segment id="details" className="HQComps">
-      {host ? <HostInfo host={host} areas={areas} handleChange={handleChange}/> : renderSomething()}
+      {host ? <HostInfo host={host} areas={areas} handleChange={handleChange} handleLogs={handleLogs}/> : renderSomething()}
     </Segment>
   )
 }
