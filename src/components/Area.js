@@ -1,22 +1,20 @@
 import React from 'react';
 import '../stylesheets/Area.css'
+import HostList from './HostList'
 
-const Area = () => (
+const Area = ({ area, hosts, handleClick, selectedHost }) => (
+  <div className='area' id={area.name}>
+    <h3 className='labels'>{area.name.split('_').map(name => name.slice(0,1).toUpperCase() + name.slice(1)).join(" ")}</h3>
 
-  <div className='area' id={/* Pass in the area name here to make sure this is styled correctly */}>
-    <h3 className='labels'>{/* Don't just pass in the name from the data...clean that thing up */}</h3>
-
-    {/* See Checkpoint 1 item 2 in the Readme for a clue as to what goes here */}
-
+    <HostList hosts={hosts} perRow={Math.floor(area.limit/2) + (area.limit > 10 ? 3 : 1)} handleClick={handleClick} selectedHost={selectedHost}/>
   </div>
-
 )
 
 Area.propTypes = {
-  hosts: function(props, propName, componentName){
-    if(props.hosts.length > props.limit){
+  hosts: function(hosts, area, propName, componentName){
+    if(hosts.length > area.limit){
       throw Error(
-        `HEY!! You got too many hosts in ${props.name}. The limit for that area is ${props.limit}. You gotta fix that!`
+        `HEY!! You got too many hosts in ${area.name}. The limit for that area is ${area.limit}. You gotta fix that!`
       )
     }
   }
